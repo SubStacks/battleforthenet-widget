@@ -26,7 +26,7 @@
 (function(){ // :)
 
 // Default URL for animation iframe. This gets overlay'ed over your page.
-var dfurl = 'https://widget.battleforthenet.com/iframe';
+var dfurl = 'https://widget.substacks.com/stacks/sms-marketing/coupon-webpage-embed';
 
 
 /**
@@ -34,34 +34,30 @@ var dfurl = 'https://widget.battleforthenet.com/iframe';
 CONFIGURATION OPTIONS
 --------------------------------------------------------------------------------
 These are default configuration values for the widget. You can override any of
-these by pre-defining an object named _bftn_options and setting the appropriate
+these by pre-defining an object named _substacks_smsmcwe_options and setting the appropriate
 properties as desired.
 --------------------------------------------------------------------------------
 */
 
-// The _bftn_options object is created if it isn't already defined by you
-if (typeof _bftn_options == "undefined")
-	_bftn_options = {};
+// The _substacks_smsmcwe_options object is created if it isn't already defined by you
+if (typeof _substacks_smsmcwe_options == "undefined")
+	_substacks_smsmcwe_options = {};
 
 // The path to the iframe that gets injected over your page
-if (typeof _bftn_options.iframe_base_path == "undefined")
-	_bftn_options.iframe_base_path = dfurl;
-
-// Which design to show, either "modal" or "banner" (see _bftn_animations below)
-if (typeof _bftn_options.animation == "undefined")
-	_bftn_options.animation = 'modal';
+if (typeof _substacks_smsmcwe_options.iframe_base_path == "undefined")
+	_substacks_smsmcwe_options.iframe_base_path = dfurl;
 
 // How long to delay before showing the widget
-if (typeof _bftn_options.delay == "undefined")
-	_bftn_options.delay = 0;
+if (typeof _substacks_smsmcwe_options.delay == "undefined")
+	_substacks_smsmcwe_options.delay = 0;
 
 // If set to true, we will log stuff to the console
-if (typeof _bftn_options.debug == "undefined")
-	_bftn_options.debug = false;
+if (typeof _substacks_smsmcwe_options.debug == "undefined")
+	_substacks_smsmcwe_options.debug = true;
 
 // Usually a cookie is used to only show the widget once. You can override here.
-if (typeof _bftn_options.always_show_widget == "undefined")
-	_bftn_options.always_show_widget = false;
+if (typeof _substacks_smsmcwe_options.always_show_widget == "undefined")
+	_substacks_smsmcwe_options.always_show_widget = true;
 
 /**
 --------------------------------------------------------------------------------
@@ -70,16 +66,16 @@ ANIMATION DEFINITIONS
 Here's where the functionality and defaults for each of the animations (either
 "modal" or "banner" to begin with). Each animation has its own options property,
 which is an object containing default behaviors for that animation. These can be
-overridden by passing the appropriately-named properties into the _bftn_options
+overridden by passing the appropriately-named properties into the _substacks_smsmcwe_options
 object (above). This will get merged over the defaults when init is called.
 --------------------------------------------------------------------------------
 */
-var _bftn_animations = {
+var _substacks_smsmcwe_animations = {
 
 	// MODAL ANIMATION
 	modal: {
 
-		// Default options: Override these with _bftn_options object (see above)
+		// Default options: Override these with _substacks_smsmcwe_options object (see above)
 		options: {
 			modalAnimation: 'modal',
 			skipEmailSignup: false,
@@ -89,7 +85,7 @@ var _bftn_animations = {
 			org: null
 		},
 
-		// init copies the _bftn_options properties over the default options
+		// init copies the _substacks_smsmcwe_options properties over the default options
 		init: function(options) {
 			for (var k in options) this.options[k] = options[k];
 			return this;
@@ -97,25 +93,20 @@ var _bftn_animations = {
 
 		// what to do when the animation starts
 		start: function() {
-			var css = '#_bftn_iframe { position: fixed; left: 0px; top: 0px; \
+			var css = '#_substacks_smsmcwe_iframe { position: fixed; left: 0px; top: 0px; \
 				width: 100%; height: 100%; z-index: 100001; }'
 
-			_bftn_util.injectCSS('_bftn_iframe_css', css);
+			_substacks_smsmcwe_util.injectCSS('_substacks_smsmcwe_iframe_css', css);
 
-			var iframe = _bftn_util.createIframe(this.options.modalAnimation);
-			_bftn_util.bindIframeCommunicator(iframe, this);
-		},
-
-		// what to do when the animation stops
-		stop: function() {
-			_bftn_util.destroyIframe();
+			var iframe = _substacks_smsmcwe_util.createIframe(this.options.modalAnimation);
+			_substacks_smsmcwe_util.bindIframeCommunicator(iframe, this);
 		}
 	},
 
 	// BANNER ANIMATION
 	banner: {
 
-		// Default options: Override these with _bftn_options object (see above)
+		// Default options: Override these with _substacks_smsmcwe_options object (see above)
 		options: {
 			modalAnimation: 'banner',
 			position: 'topright', // topright|bottomright
@@ -126,7 +117,7 @@ var _bftn_animations = {
 			theme: 'light'
 		},
 
-		// init copies the _bftn_options properties over the default options
+		// init copies the _substacks_smsmcwe_options properties over the default options
 		init: function(options) {
 			for (var k in options) this.options[k] = options[k];
 			return this;
@@ -154,14 +145,14 @@ var _bftn_animations = {
 			// otherwise it will be fixed to the top / bottom
 			var minFloatWidth = this.options.width-1;
 
-			var css = '#_bftn_iframe { \
+			var css = '#_substacks_smsmcwe_iframe { \
 					position: fixed; '+pos+' \
 					width: '+this.options.width+'px; \
 					height: '+this.options.height+'px; \
 					z-index: 100001; \
 				} \
 				@media (max-width:'+minFloatWidth+'px) { \
-					#_bftn_iframe { \
+					#_substacks_smsmcwe_iframe { \
 						position: absolute; \
 						width: 100%; \
 						left: 0px; \
@@ -169,15 +160,10 @@ var _bftn_animations = {
 					} \
 				}';
 
-			_bftn_util.injectCSS('_bftn_iframe_css', css);
+			_substacks_smsmcwe_util.injectCSS('_substacks_smsmcwe_iframe_css', css);
 
-			var iframe = _bftn_util.createIframe(this.options.modalAnimation);
-			_bftn_util.bindIframeCommunicator(iframe, this);
-		},
-
-		// what to do when the animation stops
-		stop: function() {
-			_bftn_util.destroyIframe();
+			var iframe = _substacks_smsmcwe_util.createIframe(this.options.modalAnimation);
+			_substacks_smsmcwe_util.bindIframeCommunicator(iframe, this);
 		}
 	}
 }
@@ -187,7 +173,7 @@ var _bftn_animations = {
 UTILITY FUNCTIONS
 --------------------------------------------------------------------------------
 */
-var _bftn_util = {
+var _substacks_smsmcwe_util = {
 
 	// Inject CSS styles into the page
 	injectCSS: function(id, css)
@@ -203,80 +189,13 @@ var _bftn_util = {
 	// Create the iframe used to display the animation  
 	createIframe: function(animation) {
 		var iframe = document.createElement('iframe');
-		iframe.id = '_bftn_iframe';
-		iframe.src = _bftn_options.iframe_base_path + '/' + animation + '.html';
+		iframe.id = '_substacks_smsmcwe_iframe';
+		iframe.src = _substacks_smsmcwe_options.iframe_base_path + '.php';
 		iframe.frameBorder = 0;
 		iframe.allowTransparency = true; 
 		iframe.style.display = 'none';
 		document.body.appendChild(iframe);
 		return iframe;
-	},
-
-	// Destroy the iframe used to display the animation
-	destroyIframe: function() {
-		var iframe = document.getElementById('_bftn_iframe');
-		iframe.parentNode.removeChild(iframe);
-	},
-
-	// Sends / receives event messages to the iframe (IE9+)
-	// Necessary because the iframe lives on a different domain and we can't
-	// just call Javascript functions to/from it due to XSS protections.
-	bindIframeCommunicator: function(iframe, animation) {
-		var sendMessage = function(requestType, data)
-		{
-			data || (data = {});
-			data.requestType = requestType;
-			data.BFTN_WIDGET_MSG = true;
-			data.HOST_NAME = hostname;
-			iframe.contentWindow.postMessage(data, '*');
-		}
-
-		var method = window.addEventListener ? "addEventListener":"attachEvent";
-		var eventer = window[method];
-		var messageEvent = method == "attachEvent" ? "onmessage":"message";
-
-		var hostname = this.getHostname();
-
-		eventer(messageEvent,function(e) {
-			if (!e.data || !e.data.BFTN_IFRAME_MSG)
-				return;
-
-			delete e.data.BFTN_IFRAME_MSG;
-
-			switch (e.data.requestType) {
-				case 'getAnimation':
-					iframe.style.display = 'block';
-					sendMessage('putAnimation', animation.options);
-					break;
-				case 'stop':
-					animation.stop();
-					break;
-			}
-		}, false);
-
-	},
-
-	// Set a cookie. Used to only show the widget once (unless you override).
-	setCookie: function(name,val,exdays)
-	{
-		var d = new Date();
-		d.setTime(d.getTime()+(exdays*24*60*60*1000));
-		var expires = "expires="+d.toGMTString();
-		document.cookie = name + "=" + val + "; " + expires;
-	},
-
-	// Get the cookie. Used to only show the widget once.
-	getCookie: function(cname)
-	{
-		var name = cname + "=";
-		var ca = document.cookie.split(';');
-		for(var i=0; i<ca.length; i++)
-  		{
-  			var c = ca[i].trim();
-  			if (c.indexOf(name)==0)
-  				return c.substring(name.length,c.length);
-  		}
-		return "";
 	},
 
 	// Get the hostname of the web page. Used to track stats for leaderboards
@@ -285,9 +204,9 @@ var _bftn_util = {
 		return hostname;
 	},
 
-	// If _bftn_options.debug is on, then console.log some stuff
+	// If _substacks_smsmcwe_options.debug is on, then console.log some stuff
 	log: function() {
-		if (_bftn_options.debug)
+		if (_substacks_smsmcwe_options.debug)
 			console.log.apply(console, arguments);
 	}
 }
@@ -299,38 +218,10 @@ MAIN FUNCTIONALITY (called once the page is ready)
 */
 var ready = function() {
 
-	// Should we show the widget, regardless?
-	var url_override = window.location.href.indexOf('SHOW_BFTN_WIDGET') > -1;
-	if (!_bftn_options.always_show_widget && url_override == false) {
-		// Only show once.
-		if (_bftn_util.getCookie('_BFTN_WIDGET_SHOWN')) {
-			return;
-		}
-
-		// Only show on September 10th 2014.
-		// JL HACK ~ remove before the end of September >_>
-		if (new Date().getDate() < 10) {
-			return;
-		}
-	}
-
-	_bftn_util.setCookie('_BFTN_WIDGET_SHOWN', 'true', 365);
-
-	// JL HACK ~ Force iPhone / iPod to show banner while we fix issues
-	if(/(iPhone|iPod)/g.test(navigator.userAgent))
-		_bftn_options.animation = 'banner';
-
-	if (typeof _bftn_animations[_bftn_options.animation] == "undefined")
-		return _bftn_util.log('Animation undefined: '+_bftn_options.animation);
-
-	var animation = _bftn_animations[_bftn_options.animation];
-
-	var images = new Array()
-	var preloaded = 0;
-
 	setTimeout(function() {
-		animation.init(_bftn_options).start();
-	}, _bftn_options.delay);
+		animation.init(_substacks_smsmcwe_options).start();
+	}, _substacks_smsmcwe_options.delay);
+	
 }
 
 // Wait for DOM content to load.
